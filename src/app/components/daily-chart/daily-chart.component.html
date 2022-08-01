@@ -1,0 +1,44 @@
+<div class="chart">
+  <div class="panel">
+<mat-form-field appearance="fill">
+    <mat-label>Favorite view</mat-label>
+    <mat-select [(value)]="selectedView.type"  (selectionChange)="selectChange($event.value)">
+      <div *ngFor="let view of views.selectOptions">
+        <mat-option *ngIf='view.value !== "area"' [value]="view.value">
+          {{view.viewValue}}
+        </mat-option>
+    </div>
+    </mat-select>
+  </mat-form-field>
+
+<mat-slide-toggle 
+  *ngIf='selectedView.type !== "bar"'
+  (change)="toggleChange($event.checked)"
+  class="list-toggle"
+>
+  Fill line
+</mat-slide-toggle>
+</div>
+
+<section >
+  <mat-checkbox
+    *ngFor="let chip of views.chipOptions" 
+    [checked]="chip.enabled"
+    (change)="chipSelected(chip)"
+    class="option"
+  >
+  {{chip.title}}</mat-checkbox>
+</section>
+
+
+<highcharts-chart 
+  [Highcharts]="Highcharts"
+  [constructorType]="chartConstructor"
+  [options]="chartOptions"
+  [callbackFunction]="chartCallback"
+  [(update)]="updateFlag"
+
+
+  style="width: 100%; height: 400px; display: block;"
+></highcharts-chart>
+</div>

@@ -1,0 +1,23 @@
+<div class="forecast">
+  <mat-chip-list aria-label="Charts selection">
+    <mat-chip 
+        *ngFor="let chip of chartsView" 
+        [selected]="chip.visible" 
+        (click)="chipSelected(chip)"
+    >
+    {{chip.title}}
+    </mat-chip>
+  </mat-chip-list>
+
+  <div *ngFor="let chart of chartsView" >
+    <div  *ngIf="chart.visible">
+      <app-daily-chart
+      [title]="chart.title"
+      [temperature]="chart.temperature"
+      [humidity]="chart.humidity"
+      [gust]="chart.gust"
+      >
+      </app-daily-chart>
+    </div>
+  </div>
+</div>
