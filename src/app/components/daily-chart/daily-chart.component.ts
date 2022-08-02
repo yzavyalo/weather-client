@@ -28,6 +28,7 @@ export class DailyChartComponent implements OnInit, OnChanges {
   @Input() humidity!: number[];
   @Input() gust!: number[];
   @Input() title!: string;
+  @Input() isSummary: boolean;
 
   selectedView:
     | Highcharts.SeriesLineOptions
@@ -61,6 +62,7 @@ export class DailyChartComponent implements OnInit, OnChanges {
   chart;
   Highcharts: typeof Highcharts = Highcharts;
   chartConstructor: string = 'chart'; // optional string, defaults to 'chart'
+
   chartOptions: Highcharts.Options = {
     title: {
       text: "",
@@ -84,8 +86,8 @@ export class DailyChartComponent implements OnInit, OnChanges {
         description: 'Time from 00:00 to 23:00'
       },
       categories: ['00:00', '01:00','02:00','03:00','04:00','05:00','06:00','07:00','08:00','09:00',
-                    '10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00',
-                    '20:00','21:00','22:00','23:00']
+      '10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00',
+      '20:00','21:00','22:00','23:00']
     },
     series: [],
   };
@@ -113,6 +115,28 @@ export class DailyChartComponent implements OnInit, OnChanges {
   }
   
   updateComponent(){
+   
+   const xAxis: Highcharts.XAxisOptions = 
+   {
+      title: {
+        text: 'Time'
+      },
+      accessibility: {
+        description: this.isSummary ? 'Time for next tree days': 'Time from 00:00 to 23:00'
+      },
+      categories: this.isSummary ? ['00:00', '01:00','02:00','03:00','04:00','05:00','06:00','07:00','08:00','09:00',
+      '10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00',
+      '20:00','21:00','22:00','23:00','00:00', '01:00','02:00','03:00','04:00','05:00','06:00','07:00','08:00','09:00',
+      '10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00',
+      '20:00','21:00','22:00','23:00','00:00', '01:00','02:00','03:00','04:00','05:00','06:00','07:00','08:00','09:00',
+      '10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00',
+      '20:00','21:00','22:00','23:00'] : ['00:00', '01:00','02:00','03:00','04:00','05:00','06:00','07:00','08:00','09:00',
+      '10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00',
+      '20:00','21:00','22:00','23:00']
+    }
+
+    this.chartOptions.xAxis = xAxis;
+
     this.chartOptions.title.text = this.title;
     this.chartOptions.series = this.views.chipOptions.map((chip) => {
       let dataset: any = [];

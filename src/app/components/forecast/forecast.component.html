@@ -7,7 +7,27 @@
     >
     {{chip.title}}
     </mat-chip>
+    <button 
+      mat-raised-button 
+      color="accent"
+      (click)="showSummary()"
+    >
+    {{isSummary ? "Back" : "Summary" }} 
+    </button>
   </mat-chip-list>
+
+
+
+  <div *ngIf="isSummary">
+      <app-daily-chart
+      title="Long forecast"
+      [temperature]="summaryTemperature"
+      [humidity]="summaryHumidity"
+      [gust]="summaryGust"
+      [isSummary] = "isSummary"
+      >
+      </app-daily-chart>>
+  </div>
 
   <div *ngFor="let chart of chartsView" >
     <div  *ngIf="chart.visible">
@@ -16,6 +36,7 @@
       [temperature]="chart.temperature"
       [humidity]="chart.humidity"
       [gust]="chart.gust"
+      isSummary = false
       >
       </app-daily-chart>
     </div>

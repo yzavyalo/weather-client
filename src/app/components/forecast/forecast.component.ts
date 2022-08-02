@@ -4,9 +4,9 @@ import { WeatherService } from '../../services/weather.service';
 interface ChartView {
   visible: boolean;
   title: string;
-  temperature: number;
-  humidity: number;
-  gust: number;
+  temperature: Array<number>;
+  humidity: Array<number>;
+  gust: Array<number>;
 }
 
 @Component({
@@ -19,25 +19,30 @@ export class ForecastComponent implements OnInit {
     {
       visible: true,
       title: 'Today',
-      temperature: 0,
-      humidity: 0,
-      gust: 0,
+      temperature: [],
+      humidity: [],
+      gust: [],
     },
     {
       visible: true,
       title: 'Tomorrow',
-      temperature: 0,
-      humidity: 0,
-      gust: 0,
+      temperature: [],
+      humidity: [],
+      gust: [],
     },
     {
       visible: true,
       title: 'Two days later',
-      temperature: 0,
-      humidity: 0,
-      gust: 0,
+      temperature: [],
+      humidity: [],
+      gust:[],
     },
   ];
+
+  isSummary: boolean = false;
+  summaryTemperature:Array<number>;
+  summaryHumidity:Array<number>;
+  summaryGust:Array<number>;
 
   constructor(private dataService: WeatherService) {}
 
@@ -66,6 +71,13 @@ export class ForecastComponent implements OnInit {
           .hour.map((hour) => hour.gust_mph),
       };
     });
+  }
+
+  showSummary(){
+    this.isSummary = !this.isSummary;
+    this.summaryTemperature = this.chartsView.reduce((previousValue, currentValue) => previousValue.concat(currentValue.temperature),[])
+    this.summaryHumidity = this.chartsView.reduce((previousValue, currentValue) => previousValue.concat(currentValue.humidity),[])
+    this.summaryGust = this.chartsView.reduce((previousValue, currentValue) => previousValue.concat(currentValue.gust),[])
   }
 
   chipSelected(changedChip: ChartView) {
