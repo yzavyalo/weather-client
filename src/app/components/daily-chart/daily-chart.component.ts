@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import * as Highcharts from 'highcharts';
 
 interface SelectOption {
@@ -22,7 +22,7 @@ interface ChartView {
   styleUrls: ['./daily-chart.component.scss']
 })
 
-export class DailyChartComponent implements OnInit {
+export class DailyChartComponent implements OnInit, OnChanges {
 
   @Input() temperature!: number[];
   @Input() humidity!: number[];
@@ -138,7 +138,7 @@ export class DailyChartComponent implements OnInit {
     this.updateFlag = true;
   }
 
-  selectChange(newChartView): void {
+  selectChange(newChartView: any): void {
     this.selectedView.type = newChartView;
     this.chartOptions.series.forEach(
       (series) => (series.type = this.selectedView.type)
@@ -146,7 +146,7 @@ export class DailyChartComponent implements OnInit {
     this.updateFlag = true;
   }
 
-  toggleChange(toggleStatus){
+  toggleChange(toggleStatus: string){
     this.chartOptions.series.forEach(
       (series) => (series.type =  toggleStatus ? 'area' : 'line')
     );
