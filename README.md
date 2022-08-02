@@ -6,6 +6,8 @@ Client uses public [weather API](https://www.weatherapi.com/)
 
 Free trial allows to use 3 days forecast (so that there are 3 chart maximum instead 4)
 
+Test cases are examples of different types of testing: show info, emit event on ui element,  update data srom service
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.

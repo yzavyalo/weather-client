@@ -37,15 +37,15 @@ describe('DailyChartComponent', () => {
     });
   });
 
-  it('select options change', () => {
+  it('select type of chart', () => {
     fixture.debugElement.query(By.css('mat-select')).triggerEventHandler('selectionChange',{ value: "bar"});
     fixture.detectChanges();
     expect(component.selectedView.type).toBe("bar");
   });
 
 
-  it('checkbox options change', () => {
-    const newChip={
+  it('choose measurement to view', () => {
+    const newChip = {
       title: "Temperature",
       enabled: false
     }

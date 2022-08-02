@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import {HttpClientModule} from "@angular/common/http";
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { WikiComponent } from './components/wiki/wiki.component';
 import { ForecastComponent } from './components/forecast/forecast.component';
 import { DailyChartComponent } from './components/daily-chart/daily-chart.component';
-import { DataService } from './data.service';
+import { WeatherService } from './services/weather.service';
 import { MaterialMainModule } from './material.module';
 
 @NgModule({
@@ -18,7 +18,7 @@ import { MaterialMainModule } from './material.module';
     AppComponent,
     WikiComponent,
     ForecastComponent,
-    DailyChartComponent
+    DailyChartComponent,
   ],
   imports: [
     BrowserModule,
@@ -28,12 +28,10 @@ import { MaterialMainModule } from './material.module';
     MaterialMainModule,
     ReactiveFormsModule,
     NoopAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
-  exports:[
-    DailyChartComponent
-  ],
-  providers: [DataService],
-  bootstrap: [AppComponent]
+  exports: [DailyChartComponent],
+  providers: [WeatherService],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
